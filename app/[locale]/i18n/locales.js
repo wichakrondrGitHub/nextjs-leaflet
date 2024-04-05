@@ -1,4 +1,4 @@
-const fallbackLng = 'en'
-const secondLng = 'fr'
+const fallbackLng = "en";
+const secondLng = "th";
 
-module.exports = { fallbackLng, secondLng }
+module.exports = { fallbackLng, secondLng };

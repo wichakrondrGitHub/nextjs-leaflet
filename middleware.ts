@@ -41,9 +41,9 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (pathname === "/fr/home") {
-    // Redirect /fr/home to /fr
-    return NextResponse.redirect(new URL("/fr", request.url));
+  if (pathname === "/th/home") {
+    // Redirect /th/home to /th
+    return NextResponse.redirect(new URL("/th", request.url));
   }
 
   const pathnameIsMissingLocale = locales.every(
