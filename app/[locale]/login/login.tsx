@@ -1,67 +1,70 @@
 /* eslint-disable no-constant-condition */
-'use client'
+"use client";
 
-import { Alert, Button, Col, Form, FormControl, InputGroup, Row } from 'react-bootstrap'
+import {
+  Alert,
+  Button,
+  Col,
+  Form,
+  FormControl,
+  InputGroup,
+  Row,
+} from "react-bootstrap";
 
-import { useRouter } from 'next/navigation'
-import { SyntheticEvent, useState } from 'react'
-import { deleteCookie, getCookie, setCookie } from 'cookies-next'
-import Link from 'next/link'
-import { LocaleTypes } from 'app/[locale]/i18n/settings'
-import { t } from 'i18next'
+import { useRouter } from "next/navigation";
+import { SyntheticEvent, useState } from "react";
+import { deleteCookie, getCookie, setCookie } from "cookies-next";
+import Link from "next/link";
+import { LocaleTypes } from "app/[locale]/i18n/settings";
+import { t } from "i18next";
+import { navigate } from "./action";
 // import LoginForm from '/app/[locale]/(authentication)/login/login'
 type Page = {
-  params: { locale: LocaleTypes }
-}
+  params: { locale: LocaleTypes };
+};
 
 export default function Login({ params: { locale } }: Page) {
-  const router = useRouter()
-  const [submitting, setSubmitting] = useState(false)
-  const [error, setError] = useState('')
-
-  const getRedirect = () => {
-    const redirect = getCookie('redirect')
-    if (redirect) {
-      deleteCookie('redirect')
-      return redirect.toString()
-    }
-
-    return '/admin'
-  }
+  const router = useRouter();
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const login = async (e: SyntheticEvent) => {
-    e.stopPropagation()
-    e.preventDefault()
+    e.stopPropagation();
+    e.preventDefault();
 
-    setSubmitting(true)
+    setSubmitting(true);
 
     try {
       if (true) {
-        setCookie('auth', 'auth')
-        // router.push(getRedirect())
-        router.push(`/${locale}/`)
+        setCookie("auth", "auth");
+        navigate("/" + locale + "/admin");
       }
     } catch (err) {
       if (err instanceof Error) {
-        setError(err.message)
+        setError(err.message);
       }
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
-  }
+  };
 
   return (
     <>
-      <Alert variant="danger" show={error !== ''} onClose={() => setError('')} dismissible>
+      <Alert
+        variant="danger"
+        show={error !== ""}
+        onClose={() => setError("")}
+        dismissible
+      >
         {error}
       </Alert>
       <Form onSubmit={login}>
         <Link
           href={`/${locale}/blog`}
           className="font-bold uppercase text-gray-700 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
-          aria-labelledby={t('all')}
+          aria-labelledby={t("all")}
         >
-          {t('all')}
+          {t("all")}
         </Link>
         <InputGroup className="mb-3">
           <FormControl
@@ -88,7 +91,12 @@ export default function Login({ params: { locale } }: Page) {
 
         <Row className="align-items-center">
           <Col xs={6}>
-            <Button className="px-4" variant="primary" type="submit" disabled={submitting}>
+            <Button
+              className="px-4"
+              variant="primary"
+              type="submit"
+              disabled={submitting}
+            >
               Login
             </Button>
           </Col>
@@ -96,5 +104,5 @@ export default function Login({ params: { locale } }: Page) {
         </Row>
       </Form>
     </>
-  )
+  );
 }

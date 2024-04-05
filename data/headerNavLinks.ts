@@ -1,7 +1,8 @@
 const headerNavLinks: { href: string; title: string }[] = [
-  { href: "/", title: "Home" },
+  { href: "/home", title: "Home" },
   { href: "/map", title: "Map" },
-  { href: "/about", title: "About" },
+  { href: "/admin", title: "admin" },
+  // { href: "/admin", title: "About" },
 ];
 
 export default headerNavLinks;

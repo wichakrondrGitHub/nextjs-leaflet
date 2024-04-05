@@ -1,26 +1,22 @@
-import { NextResponse, NextRequest } from 'next/server'
-import { locales } from 'app/[locale]/i18n/settings'
-import { fallbackLng } from 'app/[locale]/i18n/locales'
+import { NextResponse, NextRequest } from "next/server";
+import { locales } from "app/[locale]/i18n/settings";
+import { fallbackLng } from "app/[locale]/i18n/locales";
 
-type Middleware = (request: NextRequest) => NextResponse
+type Middleware = (request: NextRequest) => NextResponse;
 
 const authenticated: Middleware = (request) => {
-  const authSession = request.cookies.get('auth')?.value
-  const pathname = request.nextUrl.pathname
+  const authSession = request.cookies.get("auth")?.value;
+  const pathname = request.nextUrl.pathname;
   if (!authSession) {
-    return NextResponse.redirect(new URL('/en/login', request.url))
+    return NextResponse.redirect(new URL("/en/login", request.url));
   }
-  return NextResponse.rewrite(new URL(`/${fallbackLng}${pathname}`, request.url))
-}
+  return NextResponse.rewrite(new URL(`${pathname}`, request.url));
+};
 export function middleware(request: NextRequest) {
-  // Check if there is any supported locale in the pathname
-  const pathname = request.nextUrl.pathname
-  if (['/en/admin', '/admin'].includes(request.nextUrl.pathname)) {
-    return authenticated(request)
+  const pathname = request.nextUrl.pathname;
+  if (pathname.includes("admin")) {
+    return authenticated(request);
   }
-  // if (['/'].includes(request.nextUrl.pathname)) {
-  //   return NextResponse.redirect(new URL('/en', request.url))
-  // }
 
   // Check if the default locale is in the pathname
   if (
@@ -32,15 +28,27 @@ export function middleware(request: NextRequest) {
     // The new URL is now /about
     return NextResponse.redirect(
       new URL(
-        pathname.replace(`/${fallbackLng}`, pathname === `/${fallbackLng}` ? '/' : ''),
+        pathname.replace(
+          `/${fallbackLng}`,
+          pathname === `/${fallbackLng}` ? "/" : ""
+        ),
         request.url
       )
-    )
+    );
+  }
+  if (pathname === "/home" || pathname === "/en/home") {
+    // Redirect /home and /en/home to /
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  if (pathname === "/fr/home") {
+    // Redirect /fr/home to /fr
+    return NextResponse.redirect(new URL("/fr", request.url));
   }
 
   const pathnameIsMissingLocale = locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  )
+  );
 
   if (pathnameIsMissingLocale) {
     // We are on the default locale
@@ -48,7 +56,9 @@ export function middleware(request: NextRequest) {
 
     // e.g. incoming request is /about
     // Tell Next.js it should pretend it's /en/about
-    return NextResponse.rewrite(new URL(`/${fallbackLng}${pathname}`, request.url))
+    return NextResponse.rewrite(
+      new URL(`/${fallbackLng}${pathname}`, request.url)
+    );
   }
 }
 
@@ -57,4 +67,4 @@ export const config = {
   // prettier-ignore
   matcher:
     ['/((?!api|static|track|data|css|scripts|.*\\..*|_next).*|robots.txt|sitemap.xml)', '/admin'],
-}
+};
