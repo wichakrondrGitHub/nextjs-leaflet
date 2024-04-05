@@ -6,6 +6,7 @@ import {
   Linkedin,
   Twitter,
   X,
+  Medium,
 } from "./icons";
 import siteMetadata from "@/data/siteMetadata";
 
@@ -18,6 +19,7 @@ const components = {
   youtube: Youtube,
   linkedin: Linkedin,
   twitter: X,
+  medium: Medium,
 };
 
 type SocialIconProps = {

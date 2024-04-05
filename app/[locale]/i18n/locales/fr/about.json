@@ -2,12 +2,6 @@
   "title": "สวัสดี ผมเดียร์",
   "desc": "วิศวกรซอฟต์แวร์ที่มีประสบการณ์ React.js และ Node.js กำลังมองหาบทบาทที่ท้าทายเพื่อสนับสนุนทักษะและความเชี่ยวชาญของฉันในการพัฒนาเว็บแอปพลิเคชัน ด้วยประวัติการส่งมอบโค้ดที่มีคุณภาพและการทำงานร่วมกันอย่างมีประสิทธิภาพภายในทีม โดยใช้ประโยชน์จากเทคโนโลยีเพื่อสร้างโซลูชันที่เป็นนวัตกรรมที่ขับเคลื่อนการเติบโตของธุรกิจ #โดยไม่หยุดเรียนรู้",
   "name": "เดียร์ kab",
-  "avatar": "/static/images/avatar.png",
   "occupation": "Software engineer",
-  "company": "University Of Phayao",
-  "email": "address@yoursite.com",
-  "twitter": "https://twitter.com/Twitter",
-  "linkedin": "https://www.linkedin.com",
-  "github": "https://github.com",
-  "language": "en"
+  "university": "University Of Phayao"
 }

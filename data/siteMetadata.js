@@ -1,22 +1,22 @@
-/** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: "Next.js i18n Starter ",
-  author: "Next.js i18n Starter ",
+  title: "Next.js i18n Leaflet.js",
+  author: "Next.js i18n Leaflet.js",
   headerTitle: "VLM",
   description: "A blog created with Next.js, i18n and Tailwind.css",
   language: "en",
   theme: "system", // system, dark or light
-  siteUrl: "https://tailwind-nextjs-starter-blog-i18n.vercel.app",
-  siteRepo: "https://github.com/PxlSyl/tailwind-nextjs-starter-blog-i18n",
+  siteUrl: "https://github.com/wichakrondrGitHub/nextjs-leaflet",
+  siteRepo: "https://github.com/wichakrondrGitHub/nextjs-leaflet",
   siteLogo: "/static/images/logo.png",
   socialBanner: "/static/images/twitter-card.png",
   email: "address@yoursite.com",
-  github: "https://github.com",
+  github: "https://github.com/wichakrondrGitHub",
   twitter: "https://twitter.com/Twitter",
   facebook: "https://facebook.com",
   youtube: "https://youtube.com",
-  linkedin: "https://www.linkedin.com",
+  linkedin: "https://www.linkedin.com/in/wichakron-khunkhangsaeng-b59543229",
   locale: "en",
+  medium: "https://medium.com/@wichakrondr",
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.

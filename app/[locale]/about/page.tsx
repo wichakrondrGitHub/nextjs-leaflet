@@ -29,7 +29,6 @@ export default async function Page({ params: { locale } }: AboutProps) {
           name: "Dear kab",
           avatar: "/static/images/avatar.png",
           occupation: "Software engineer",
-          company: "Stanford University",
           email: "address@yoursite.com",
           twitter: "https://twitter.com/Twitter",
           linkedin: "https://www.linkedin.com",

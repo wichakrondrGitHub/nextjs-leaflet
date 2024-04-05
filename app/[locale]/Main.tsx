@@ -5,6 +5,7 @@ import { coreContent } from "pliny/utils/contentlayer";
 import { genPageMetadata } from "app/[locale]/seo";
 import { createTranslation } from "./i18n/server";
 import { LocaleTypes } from "./i18n/settings";
+import siteMetadata from "@/data/siteMetadata";
 
 type AboutProps = {
   params: { locale: LocaleTypes };
@@ -31,11 +32,6 @@ export default async function Home({ params: { locale } }: AboutProps) {
           name: "Dear kab",
           avatar: "/static/images/avatar.png",
           occupation: "Software engineer",
-          company: "Stanford University",
-          email: "address@yoursite.com",
-          twitter: "https://twitter.com/Twitter",
-          linkedin: "https://www.linkedin.com",
-          github: "https://github.com",
           language: "en",
         }}
         children={<>{t("desc")}</>}
