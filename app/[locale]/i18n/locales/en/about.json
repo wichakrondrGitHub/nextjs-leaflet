@@ -1,3 +1,13 @@
 {
-  "title": "Hi im Dear"
+  "title": "Hi im Dear",
+  "desc": "Experienced software engineer with a strong background in React.js and Node.js seeking a challenging role to contribute my skills and expertise in developing  web applications. With a track record of delivering high-quality code and collaborating effectively in cross-functional teams, leveraging technology to create innovative solutions that drive business growth with #never stop learning.",
+  "name": "Dear kab",
+  "avatar": "/static/images/avatar.png",
+  "occupation": "Software engineer",
+  "company": "University Of Phayao",
+  "email": "address@yoursite.com",
+  "twitter": "https://twitter.com/Twitter",
+  "linkedin": "https://www.linkedin.com",
+  "github": "https://github.com",
+  "language": "en"
 }

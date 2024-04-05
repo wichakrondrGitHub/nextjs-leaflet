@@ -21,6 +21,8 @@ export async function generateMetadata({
 }
 
 export default async function Home({ params: { locale } }: AboutProps) {
+  const { t } = await createTranslation(locale, "about");
+
   return (
     <>
       <AuthorLayout
@@ -36,12 +38,7 @@ export default async function Home({ params: { locale } }: AboutProps) {
           github: "https://github.com",
           language: "en",
         }}
-        children={
-          <>
-            Experienced software engineer with a strong background in React.js
-            and Node.js
-          </>
-        }
+        children={<>{t("desc")}</>}
       ></AuthorLayout>
     </>
   );
