@@ -1,4 +1,4 @@
-import Main from "./Main";
+import Main from "./main";
 import { LocaleTypes } from "./i18n/settings";
 
 type HomeProps = {

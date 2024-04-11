@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { useRef, useState } from "react";
 import {
   usePathname,
@@ -8,6 +9,73 @@ import {
 import { useOuterClick } from "./util/useOuterClick";
 import { LocaleTypes, locales } from "app/[locale]/i18n/settings";
 import slugMap from "app/[locale]/localeid-map.json";
+import { Button, Dropdown, Menu } from "antd";
+
+// Styled components
+const StyledLangSwitch = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const StyledButton = styled.button`
+  display: inline-flex;
+  justify-content: center;
+  padding: 4px 12px;
+  border: 1px solid ${({ theme }) => theme?.colors?.border || "#ddd"}; /* Use optional chaining and default to gray */
+  border-radius: 4px;
+  background-color: ${({ theme }) =>
+    theme?.colors?.background ||
+    ""}; /* Use optional chaining and default to white */
+  font-size: 14px;
+  font-weight: medium;
+  color: ${({ theme }) =>
+    theme?.colors?.text || ""}; /* Use optional chaining and default to black */
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) =>
+      theme?.colors?.backgroundHover ||
+      ""}; /* Use optional chaining and default to light gray */
+  }
+
+  /* Add styles for focus state if needed */
+`;
+
+const StyledMenu = styled.div`
+  position: absolute;
+  top: 100%; /* Position menu below the button */
+  right: 0;
+  width: 150px; /* Set menu width */
+  background-color: ${({ theme }) =>
+    theme?.colors?.background ||
+    ""}; /* Use optional chaining and default to white */
+  box-shadow: ${({ theme }) =>
+    theme?.shadows?.default ||
+    "0px 2px 4px rgba(0, 0, 0, 0.1)"}; /* Use optional chaining and default to default shadow */
+  border-radius: 4px;
+  padding: 8px 0;
+  z-index: 10;
+  border: 1px solid #ddd;
+`;
+
+const StyledMenuItem = styled.button`
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background-color: transparent;
+
+  font-size: 14px;
+  color: ${({ theme }) =>
+    theme?.colors?.text || ""}; /* Use optional chaining and default to black */
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) =>
+      theme?.colors?.backgroundHover ||
+      ""}; /* Use optional chaining and default to light gray */
+  }
+`;
 
 const LangSwitch = () => {
   const pathname = usePathname();
@@ -19,20 +87,6 @@ const LangSwitch = () => {
 
   const handleLocaleChange = (newLocale: string): string => {
     const newUrl = `/${newLocale}/${urlSegments.join("/")}`;
-
-    // Find the current post based on the current locale and slug
-    const currentPost = "fr";
-
-    // if (currentPost) {
-    //   // Find the corresponding slug in the new language
-    //   const newSlug = slugMap[currentPost]?.[newLocale];
-
-    //   if (newSlug) {
-    //     return `/${newLocale}/blog/${newSlug}`;
-    //   } else {
-    //     return `/${newLocale}/blog`;
-    //   }
-    // }
 
     return newUrl;
   };
@@ -53,54 +107,28 @@ const LangSwitch = () => {
     router.push(resolvedUrl);
     closeMenu();
   };
+  const handleClick = ({ key }) => {
+    console.log(key);
+    //you can perform setState here
+  };
 
+  const menu = (
+    <Menu onClick={handleClick}>
+      {locales.map((newLocale: string) => (
+        <Menu.Item key={newLocale}>
+          <StyledMenuItem onClick={() => handleLinkClick(newLocale)}>
+            {newLocale}
+          </StyledMenuItem>
+        </Menu.Item>
+      ))}
+    </Menu>
+  );
   return (
-    <div ref={menubarRef} className="relative inline-block text-left">
-      <div>
-        <button
-          type="button"
-          className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 dark:bg-gray-800 dark:text-white"
-          id="options-menu"
-          aria-haspopup="true"
-          aria-expanded={isMenuOpen}
-          onClick={toggleMenu}
-        >
-          {locale}
-        </button>
-      </div>
-      {isMenuOpen && (
-        <div
-          className="absolute right-0 mt-2 w-12 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:rounded-md dark:bg-gray-700 dark:ring-1 dark:ring-gray-300"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="options-menu"
-          onBlur={closeMenu}
-        >
-          <ul
-            className="py-1"
-            role="none"
-            style={{ listStyle: "none", margin: 0, padding: 0 }}
-          >
-            {locales.map((newLocale: string) => (
-              <li key={newLocale}>
-                <button
-                  onClick={() => handleLinkClick(newLocale)}
-                  className="rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
-                  role="menuitem"
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    textDecoration: "none",
-                  }}
-                >
-                  {newLocale}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
+    <StyledLangSwitch ref={menubarRef}>
+      <Dropdown overlay={menu} trigger={["click"]}>
+        <Button onClick={(e) => e.preventDefault()}>{locale}</Button>
+      </Dropdown>
+    </StyledLangSwitch>
   );
 };
 

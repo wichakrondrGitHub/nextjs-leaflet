@@ -1,11 +1,8 @@
 import { Metadata } from "next";
-import { MDXLayoutRenderer } from "pliny/mdx-components";
-import AuthorLayout from "@/layouts/AuthorLayout";
-import { coreContent } from "pliny/utils/contentlayer";
 import { genPageMetadata } from "app/[locale]/seo";
 import { createTranslation } from "./i18n/server";
 import { LocaleTypes } from "./i18n/settings";
-import siteMetadata from "@/data/siteMetadata";
+import PageTitle from "@/components/PageTitle";
 
 type AboutProps = {
   params: { locale: LocaleTypes };
@@ -26,16 +23,7 @@ export default async function Home({ params: { locale } }: AboutProps) {
 
   return (
     <>
-      <AuthorLayout
-        params={{ locale: locale }}
-        content={{
-          name: "Dear kab",
-          avatar: "/static/images/avatar.png",
-          occupation: "Software engineer",
-          language: "en",
-        }}
-        children={<>{t("desc")}</>}
-      ></AuthorLayout>
+      <PageTitle>{t("title")}</PageTitle>
     </>
   );
 }

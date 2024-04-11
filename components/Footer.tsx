@@ -10,6 +10,36 @@ import { useTranslation } from "app/[locale]/i18n/client";
 
 import { useContactModal } from "./formspree/store";
 import { ContactModal } from "./formspree";
+import styled from "styled-components";
+
+const StyledFooter = styled.footer`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  // background-color: #f1f1f1;
+  color: #333;
+`;
+
+const IconList = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+`;
+
+const Icon = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Text = styled.div`
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #999;
+  display: flex;
+`;
 
 export default function Footer() {
   const locale = useParams()?.locale as LocaleTypes;
@@ -19,69 +49,62 @@ export default function Footer() {
   const handleContactClick = (): void => {
     contactModal.onOpen();
   };
-  function ContactClick(): void {
-    handleContactClick();
-  }
 
   return (
     <>
-      <footer>
-        <div className="mt-16 flex flex-col items-center">
-          <div className="mb-3 flex space-x-4">
-            <div className="flex items-center">
-              {siteMetadata.formspree === false ? (
-                <SocialIcon
-                  kind="mail"
-                  href={`mailto:${siteMetadata.email}`}
-                  size={6}
-                />
-              ) : (
-                <button
-                  className="flex items-center focus:outline-none"
-                  onClick={ContactClick}
-                >
-                  <SocialIcon kind="mail" size={6} />
-                </button>
-              )}
-            </div>
-            <div className="flex items-center">
-              <SocialIcon kind="github" href={siteMetadata.github} size={6} />
-            </div>
-            <div className="flex items-center">
+      <StyledFooter>
+        <IconList>
+          <Icon>
+            {siteMetadata.formspree === false ? (
               <SocialIcon
-                kind="facebook"
-                href={siteMetadata.facebook}
-                size={6}
+                kind="mail"
+                href={`mailto:${siteMetadata.email}`}
+                size={25}
               />
-            </div>
-            <div className="flex items-center">
-              <SocialIcon kind="youtube" href={siteMetadata.youtube} size={6} />
-            </div>
-            <div className="flex items-center">
-              <SocialIcon
-                kind="linkedin"
-                href={siteMetadata.linkedin}
-                size={6}
-              />
-            </div>
-            <div className="flex items-center">
-              <SocialIcon kind="twitter" href={siteMetadata.twitter} size={6} />
-            </div>
-          </div>
-          <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
-            <div>{siteMetadata.author}</div>
-            <div>{` • `}</div>
-            <div>{`© ${new Date().getFullYear()}`}</div>
-            <div>{` • `}</div>
-            <Link href="/">{siteMetadata.title}</Link>
-          </div>
-          <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
-            <Link href="https://github.com/PxlSyl/tailwind-nextjs-starter-blog-i18n">
-              {t("theme")}
-            </Link>
-          </div>
-        </div>
-      </footer>
+            ) : (
+              <button
+                className="flex items-center focus:outline-none"
+                onClick={handleContactClick}
+              >
+                <SocialIcon kind="mail" size={25} />
+              </button>
+            )}
+          </Icon>
+          <Icon>
+            <SocialIcon kind="github" href={siteMetadata.github} size={20} />
+          </Icon>
+          <Icon>
+            <SocialIcon
+              kind="facebook"
+              href={siteMetadata.facebook}
+              size={20}
+            />
+          </Icon>
+          <Icon>
+            <SocialIcon kind="youtube" href={siteMetadata.youtube} size={20} />
+          </Icon>
+          <Icon>
+            <SocialIcon
+              kind="linkedin"
+              href={siteMetadata.linkedin}
+              size={20}
+            />
+          </Icon>
+          <Icon>
+            <SocialIcon kind="twitter" href={siteMetadata.twitter} size={20} />
+          </Icon>
+        </IconList>
+        <Text>
+          <div>{siteMetadata.author}</div>
+          <div>{` • `}</div>
+          <div>{`© ${new Date().getFullYear()}`}</div>
+          <div>{` • `}</div>
+          <Link href="/">{siteMetadata.title}</Link>
+        </Text>
+        <Text>
+          <Link href="https://google.com">{t("theme")}</Link>
+        </Text>
+      </StyledFooter>
       <ContactModal />
     </>
   );

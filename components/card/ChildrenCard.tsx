@@ -1,4 +1,3 @@
-import { MenuItemType } from '@/interfaces/menu.interface'
 import { Card, Checkbox, CheckboxProps, Col, Row } from 'antd'
 import React from 'react'
 import { AiFillAlert } from 'react-icons/ai'

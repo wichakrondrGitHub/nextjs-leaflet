@@ -1,18 +1,23 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { useParams } from "next/navigation";
 import { LocaleTypes } from "app/[locale]/i18n/settings";
 import { useTranslation } from "app/[locale]/i18n/client";
+import styled from "styled-components";
+import { Button } from "antd";
 
 const ThemeSwitch = () => {
   const locale = useParams()?.locale as LocaleTypes;
   const { t } = useTranslation(locale, "");
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme, resolvedTheme } = useTheme();
-
-  // When mounted on client, now we can show the UI
+  const StyledSVG = styled.svg<{ $primary?: boolean }>`
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 1rem; /* Adjust the size as needed */
+    width: 1rem; /* Adjust the size as needed */
+  `;
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
@@ -20,19 +25,14 @@ const ThemeSwitch = () => {
   }
 
   return (
-    <button
+    <Button
       aria-label={t("darkmode")}
-      onClick={() =>
-        setTheme(
-          theme === "dark" || resolvedTheme === "dark" ? "light" : "dark"
-        )
-      }
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     >
-      <svg
+      <StyledSVG
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="h-6 w-6 text-gray-900 dark:text-gray-100"
       >
         {mounted && (theme === "dark" || resolvedTheme === "dark") ? (
           <path
@@ -43,8 +43,8 @@ const ThemeSwitch = () => {
         ) : (
           <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
         )}
-      </svg>
-    </button>
+      </StyledSVG>
+    </Button>
   );
 };
 

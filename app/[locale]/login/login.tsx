@@ -1,40 +1,28 @@
-/* eslint-disable no-constant-condition */
 "use client";
-
-import {
-  Alert,
-  Button,
-  Col,
-  Form,
-  FormControl,
-  InputGroup,
-  Row,
-} from "react-bootstrap";
-
-import { useRouter } from "next/navigation";
-import { SyntheticEvent, useState } from "react";
+import { Alert, Button, Form, Input } from "antd";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import Link from "next/link";
 import { LocaleTypes } from "app/[locale]/i18n/settings";
 import { t } from "i18next";
 import { navigate } from "./action";
-// import LoginForm from '/app/[locale]/(authentication)/login/login'
+
+const { Item } = Form;
+
 type Page = {
   params: { locale: LocaleTypes };
 };
 
 export default function Login({ params: { locale } }: Page) {
-  const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const login = async (e: SyntheticEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-
+  const login = async () => {
     setSubmitting(true);
 
     try {
+      // Perform login logic here...
       if (true) {
         setCookie("auth", "auth");
         navigate("/" + locale + "/admin");
@@ -48,60 +36,45 @@ export default function Login({ params: { locale } }: Page) {
     }
   };
 
+  const handleFormSubmit = async () => {
+    try {
+      await login();
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  };
+
   return (
     <>
-      <Alert
-        variant="danger"
-        show={error !== ""}
-        onClose={() => setError("")}
-        dismissible
-      >
-        {error}
-      </Alert>
-      <Form onSubmit={login}>
-        <Link
-          href={`/${locale}/blog`}
-          className="font-bold uppercase text-gray-700 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
-          aria-labelledby={t("all")}
+      {error && (
+        <Alert
+          type="error"
+          showIcon
+          closable
+          onClose={() => setError("")}
+          message={error}
+        />
+      )}
+      <Form onFinish={handleFormSubmit}>
+        <Item
+          name="username"
+          rules={[{ required: true, message: "Please input your username!" }]}
         >
-          {t("all")}
-        </Link>
-        <InputGroup className="mb-3">
-          <FormControl
-            name="username"
-            required
-            disabled={submitting}
-            placeholder="Username"
-            aria-label="Username"
-            defaultValue="Username"
-          />
-        </InputGroup>
+          <Input disabled={submitting} placeholder="Username" />
+        </Item>
 
-        <InputGroup className="mb-3">
-          <FormControl
-            type="password"
-            name="password"
-            required
-            disabled={submitting}
-            placeholder="Password"
-            aria-label="Password"
-            defaultValue="Password"
-          />
-        </InputGroup>
+        <Item
+          name="password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password disabled={submitting} placeholder="Password" />
+        </Item>
 
-        <Row className="align-items-center">
-          <Col xs={6}>
-            <Button
-              className="px-4"
-              variant="primary"
-              type="submit"
-              disabled={submitting}
-            >
-              Login
-            </Button>
-          </Col>
-          <Col xs={6} className="text-end"></Col>
-        </Row>
+        <Item>
+          <Button htmlType="submit" loading={submitting}>
+            Login
+          </Button>
+        </Item>
       </Form>
     </>
   );

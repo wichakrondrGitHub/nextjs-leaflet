@@ -14,11 +14,7 @@ export function ThemeProviders({ children }: { children: React.ReactNode }) {
         },
       }}
     >
-      <ThemeProvider
-        attribute="class"
-        defaultTheme={siteMetadata.theme}
-        enableSystem
-      >
+      <ThemeProvider defaultTheme={siteMetadata.theme} enableSystem>
         {children}
       </ThemeProvider>
     </ConfigProvider>

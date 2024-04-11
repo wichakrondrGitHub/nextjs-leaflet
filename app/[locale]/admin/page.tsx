@@ -1,6 +1,4 @@
 import { Metadata } from "next";
-import ListLayout from "@/layouts/ListLayoutWithTags";
-import { allCoreContent, sortPosts } from "pliny/utils/contentlayer";
 import { genPageMetadata } from "app/[locale]/seo";
 import { createTranslation } from "../i18n/server";
 import { LocaleTypes } from "../i18n/settings";

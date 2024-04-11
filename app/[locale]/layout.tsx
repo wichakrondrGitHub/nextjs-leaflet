@@ -1,8 +1,7 @@
-import "css/tailwind.css";
+// import "css/tailwind.css";
 
 import { Space_Grotesk } from "next/font/google";
 import { Analytics, AnalyticsConfig } from "pliny/analytics";
-import { SearchProvider } from "@/components/search/SearchProvider";
 import Header from "@/components/Header";
 import SectionContainer from "@/components/SectionContainer";
 import Footer from "@/components/Footer";
@@ -12,10 +11,11 @@ import { ThemeProviders } from "./theme-providers";
 import { Metadata } from "next";
 import { dir } from "i18next";
 import { LocaleTypes, locales } from "./i18n/settings";
-import TwSizeIndicator from "@/components/helper/TwSizeIndicator";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
 import "material-icons/iconfont/material-icons.css";
+import StyledComponentsRegistry from "@/lib/registry";
+import MainContainer from "@/components/main";
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -79,12 +79,7 @@ export default function RootLayout({
   params: { locale: LocaleTypes };
 }) {
   return (
-    <html
-      lang={locale}
-      dir={dir(locale)}
-      className={`${space_grotesk.variable} scroll-smooth`}
-      suppressHydrationWarning
-    >
+    <html lang={locale} dir={dir(locale)} suppressHydrationWarning>
       <link
         rel="apple-touch-icon"
         sizes="76x76"
@@ -119,22 +114,15 @@ export default function RootLayout({
         media="(prefers-color-scheme: dark)"
         content="#000"
       />
-      <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      <body className="bg-white text-black antialiased dark:bg-gray-950 dark:text-white">
-        <TwSizeIndicator />
+      <body>
         <ThemeProviders>
-          <Analytics
-            analyticsConfig={siteMetadata.analytics as AnalyticsConfig}
-          />
-          <SectionContainer>
-            <div className="flex h-screen flex-col justify-between font-sans">
-              <SearchProvider>
-                <Header />
-                <main className="mb-auto">{children}</main>
-              </SearchProvider>
+          <StyledComponentsRegistry>
+            <SectionContainer>
+              <Header />
+              <MainContainer>{children}</MainContainer>
               <Footer />
-            </div>
-          </SectionContainer>
+            </SectionContainer>
+          </StyledComponentsRegistry>
         </ThemeProviders>
       </body>
     </html>

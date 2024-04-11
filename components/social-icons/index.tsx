@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import {
   Mail,
   Github,
@@ -28,30 +29,49 @@ type SocialIconProps = {
   size?: number;
 };
 
-const SocialIcon = ({ kind, href, size = 8 }: SocialIconProps) => {
-  const SocialSvg = components[kind];
+const SocialLink = styled.a`
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 0.875rem; // Equivalent to text-sm
+  color: #6b7280;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: red;
+  }
+`;
+
+const SocialSpan = styled.span`
+  display: none; // Equivalent to sr-only
+`;
+
+const SocialSvg = styled.svg`
+  fill: currentColor;
+  width: ${({ size }) => size || 8}px;
+  height: ${({ size }) => size || 8}px;
+  margin-right: 0.5rem; // Equivalent to mr-2
+`;
+
+const SocialIcon = ({ kind, href, size = 25 }: SocialIconProps) => {
+  const SocialSvgComponent = components[kind];
 
   return (
     <>
       {kind === "mail" && !href && siteMetadata.formspree === true ? (
         <>
-          <span className="sr-only">{kind}</span>
-          <SocialSvg
-            className={`cursor-pointer fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 h-${size} w-${size}`}
-          />
+          <SocialSpan>{kind}</SocialSpan>
+          <SocialSvg size={size}>
+            <SocialSvgComponent />
+          </SocialSvg>
         </>
       ) : (
-        <a
-          className="text-sm text-gray-500 transition hover:text-gray-600"
-          target="_blank"
-          rel="noopener noreferrer"
-          href={href}
-        >
-          <span className="sr-only">{kind}</span>
-          <SocialSvg
-            className={`fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 h-${size} w-${size}`}
-          />
-        </a>
+        <SocialLink href={href} target="_blank" rel="noopener noreferrer">
+          <SocialSpan>{kind}</SocialSpan>
+          <SocialSvg size={size}>
+            <SocialSvgComponent />
+          </SocialSvg>
+        </SocialLink>
       )}
     </>
   );
