@@ -10,6 +10,7 @@ import MapDrawMultiPolygon from "@/components/map/MapDrawMultiPolygon";
 import MapWithGeoman from "@/components/map/MapWithGeoman";
 import MapWrapper from "@/components/map/MapWraper";
 import { DatePicker } from "antd";
+import { MapResizable } from "./_components/MapResizable";
 
 type MapPageProps = {
   params: { locale: LocaleTypes };
@@ -41,12 +42,16 @@ export default async function MapPage({ params: { locale } }: MapPageProps) {
       <p className="text-lg leading-7   text-gray-500 dark:text-gray-400">
         MapDrawing
       </p>
-      <MapDrawing />
-      <MapChoropleth center={center} url={""} />
-      <MapWrapper />
-      <MapDrawMultiPolygon />
-      <MapWithGeoman />
-      <DatePicker />
+      <>
+        <MapResizable />
+      </>
+
+      {/* <MapDrawing /> */}
+      {/* <MapChoropleth center={center} url={""} /> */}
+      {/* <MapWrapper /> */}
+      {/* <MapDrawMultiPolygon /> */}
+      {/* <MapWithGeoman /> */}
+      {/* <DatePicker /> */}
     </>
   );
 }
