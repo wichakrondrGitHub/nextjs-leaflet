@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import styled from "styled-components";
 import { setCookie } from "cookies-next";
-import { navigate } from "../action";
 import { LocaleTypes } from "../../i18n/settings";
 
 const LoginCard = styled.div`
@@ -12,25 +11,19 @@ const LoginCard = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  background-color: white;
-  padding: 10px;
+  flex-basis: 40%;
 `;
 const Loginform = styled(Form)`
-  min-width: 420px;
+  min-width: 320px;
 `;
-const Loginformbtn = styled(Button)`
-  width: 100%;
-`;
-interface SigninProps {
+interface LoginProps {
   params: { locale: LocaleTypes };
 }
-const Signin = ({ params: { locale } }: SigninProps) => {
+const Login = ({ params: { locale } }: LoginProps) => {
   const onFinish = async () => {
     try {
       if (true) {
         setCookie("auth", "auth");
-        navigate("/" + locale + "/admin");
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -67,17 +60,18 @@ const Signin = ({ params: { locale } }: SigninProps) => {
         </Form.Item>
 
         <Form.Item>
-          <Loginformbtn
+          <Button
             type="primary"
             htmlType="submit"
+            block
             className="login-form-button"
           >
             Log in
-          </Loginformbtn>
+          </Button>
         </Form.Item>
       </Loginform>
     </LoginCard>
   );
 };
 
-export default Signin;
+export default Login;
