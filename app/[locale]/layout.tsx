@@ -1,4 +1,5 @@
 import "css/tailwind.css";
+import "css/global.css";
 
 import { Space_Grotesk } from "next/font/google";
 import { Analytics, AnalyticsConfig } from "pliny/analytics";
