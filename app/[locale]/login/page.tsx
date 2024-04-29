@@ -1,30 +1,39 @@
-import { Col, Row } from "antd";
-import Link from "next/link";
-import Login from "./login";
 import { LocaleTypes } from "app/[locale]/i18n/settings";
-type Page = {
+import { navigate } from "./action";
+import { setCookie } from "cookies-next";
+import Signin from "./_component/Signin";
+type PageProps = {
   params: { locale: LocaleTypes };
 };
-export default function Page({ params: { locale } }: Page) {
-  return (
-    <Row>
-      <Col lg={8}>
-        <Row>
-          <Col md={7}>
-            <div>
-              <h1>Login</h1>
-              <p>Sign In to your account</p>
+export default function Page({ params: { locale } }: PageProps) {
+  const login = async () => {
+    try {
+      // Perform login logic here...
+      if (true) {
+        setCookie("auth", "auth");
+        navigate("/" + locale + "/admin");
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+      }
+    }
+  };
 
-              <Login
-                params={{
-                  locale: locale,
-                }}
-              />
-            </div>
-            <Link href="/register">Register Now!</Link>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+  const handleFormSubmit = async () => {
+    try {
+      await login();
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  };
+
+  return (
+    <>
+      <Signin
+        params={{
+          locale: locale,
+        }}
+      />
+    </>
   );
 }

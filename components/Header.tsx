@@ -12,6 +12,7 @@ import type { LocaleTypes } from "app/[locale]/i18n/settings";
 
 // Styled components
 const StyledHeader = styled.header`
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -85,11 +86,6 @@ const Header = () => {
           <StyledLogoContainer>
             <Logo />
           </StyledLogoContainer>
-          {typeof siteMetadata.headerTitle === "string" ? (
-            <StyledTitle>{siteMetadata.headerTitle}</StyledTitle>
-          ) : (
-            siteMetadata.headerTitle
-          )}
         </Link>
       </div>
       <StyledNavLinks>
@@ -107,8 +103,8 @@ const Header = () => {
               </StyledNavLink>
             );
           })}
-        <ThemeSwitch />
-        <LangSwitch />
+        {/* <ThemeSwitch />
+        <LangSwitch /> */}
       </StyledNavLinks>
     </StyledHeader>
   );

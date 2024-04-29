@@ -14,11 +14,13 @@ const authenticated: Middleware = (request) => {
 };
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  if (pathname.includes("admin")) {
-    return authenticated(request);
-  }
 
+  const authSession = request.cookies.get("auth")?.value;
+  if (!authSession && !pathname.includes("/login")) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
   // Check if the default locale is in the pathname
+
   if (
     pathname.startsWith(`/${fallbackLng}/`) ||
     pathname === `/${fallbackLng}` ||
@@ -36,15 +38,15 @@ export function middleware(request: NextRequest) {
       )
     );
   }
-  if (pathname === "/home" || pathname === "/en/home") {
-    // Redirect /home and /en/home to /
-    return NextResponse.redirect(new URL("/", request.url));
-  }
+  // if (pathname === "/home" || pathname === "/en/home") {
+  //   // Redirect /home and /en/home to /
+  //   return NextResponse.redirect(new URL("/", request.url));
+  // }
 
-  if (pathname === "/th/home") {
-    // Redirect /th/home to /th
-    return NextResponse.redirect(new URL("/th", request.url));
-  }
+  // if (pathname === "/th/home") {
+  //   // Redirect /th/home to /th
+  //   return NextResponse.redirect(new URL("/th", request.url));
+  // }
 
   const pathnameIsMissingLocale = locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
@@ -63,8 +65,15 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Do not run the middleware on the following paths
-  // prettier-ignore
-  matcher:
-    ['/((?!api|static|track|data|css|scripts|.*\\..*|_next).*|robots.txt|sitemap.xml)', '/admin'],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+  ],
 };
+// '/admin', "/", "/login"

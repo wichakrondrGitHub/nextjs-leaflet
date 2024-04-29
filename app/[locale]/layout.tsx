@@ -1,13 +1,12 @@
 // import "css/tailwind.css";
+import "css/global.css";
 
 import { Space_Grotesk } from "next/font/google";
-import { Analytics, AnalyticsConfig } from "pliny/analytics";
 import Header from "@/components/Header";
 import SectionContainer from "@/components/SectionContainer";
-import Footer from "@/components/Footer";
 import siteMetadata from "@/data/siteMetadata";
 import { maintitle, maindescription } from "@/data/localeMetadata";
-import { ThemeProviders } from "./theme-providers";
+import { AppProvider } from "./app-providers";
 import { Metadata } from "next";
 import { dir } from "i18next";
 import { LocaleTypes, locales } from "./i18n/settings";
@@ -15,17 +14,10 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
 import "material-icons/iconfont/material-icons.css";
 import StyledComponentsRegistry from "@/lib/registry";
-import MainContainer from "@/components/main";
-
+import MainContainer from "@/components/Home";
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
-
-const space_grotesk = Space_Grotesk({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-space-grotesk",
-});
 
 export async function generateMetadata({
   params: { locale },
@@ -115,15 +107,15 @@ export default function RootLayout({
         content="#000"
       />
       <body>
-        <ThemeProviders>
+        <AppProvider>
           <StyledComponentsRegistry>
             <SectionContainer>
               <Header />
               <MainContainer>{children}</MainContainer>
-              <Footer />
+              {/* <Footer /> */}
             </SectionContainer>
           </StyledComponentsRegistry>
-        </ThemeProviders>
+        </AppProvider>
       </body>
     </html>
   );

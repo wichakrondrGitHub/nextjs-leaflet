@@ -6,19 +6,19 @@ interface SectionContainerProps {
   children: ReactNode;
 }
 const Section = styled.section`
-  margin: 0;
+  background-color: #e7e9eb;
   padding: 0;
   font-family: sans-serif;
   height: 100vh;
   flex-direction: column;
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   margin-left: auto;
   margin-right: auto;
-  max-width: 1240px; /* Equivalent to max-w-screen-2xl */
+  // max-width: 2000px; /* Equivalent to max-w-screen-2xl */
   @media (min-width: 640px) {
-    padding-left: 24px; /* Equivalent to sm:px-6 */
-    padding-right: 24px; /* Equivalent to sm:px-6 */
+    // padding-left: 24px; /* Equivalent to sm:px-6 */
+    // padding-right: 24px; /* Equivalent to sm:px-6 */
     // display: none;
   }
 `;

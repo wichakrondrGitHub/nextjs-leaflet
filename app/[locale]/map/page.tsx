@@ -1,5 +1,3 @@
-import { Metadata } from "next";
-import { genPageMetadata } from "app/[locale]/seo";
 import { createTranslation } from "../i18n/server";
 import { LocaleTypes } from "../i18n/settings";
 import MapDrawing from "@/components/map/MapDrawing";
@@ -15,15 +13,6 @@ import PageTitle from "@/components/PageTitle";
 type MapPageProps = {
   params: { locale: LocaleTypes };
 };
-
-export async function generateMetadata({
-  params: { locale },
-}: MapPageProps): Promise<Metadata> {
-  return genPageMetadata({
-    title: "Map",
-    params: { locale: locale },
-  });
-}
 
 export default async function MapPage({ params: { locale } }: MapPageProps) {
   const { t } = await createTranslation(locale, "map");
