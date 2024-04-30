@@ -7,7 +7,7 @@ import Control from "react-leaflet-custom-control";
 import DrawTools from "./tools/DrawTools";
 import { Tooltip } from "antd";
 import ButtonGroup from "antd/es/button/button-group";
-import MenuLayer from "../menu/MenuLayer";
+import MenuLayer from "../menu/MapMenu";
 import SearchPlace from "./tools/Search";
 import { latlng } from "@/interfaces/map.interface";
 import MapRecenter from "./util/MapRecenter";
@@ -19,21 +19,44 @@ const MapDrawing = () => {
   const [center, setCenter] = useState<latlng>([
     23.057428249787307, 44.99542713212659,
   ]);
+  const MapInstance = () => {
+    const map = useMap();
+
+    useEffect(() => {
+      // Create and add a zoom control to the map
+      const zoomControl = L.control.zoom({ position: "topright" });
+      zoomControl.addTo(map);
+
+      return () => {
+        // Remove the zoom control when component unmounts
+        map.removeControl(zoomControl);
+      };
+    }, [map]);
+
+    return null;
+  };
 
   return (
     <>
       {/* <SearchPlace onChange={({ lat, lng }) => setCenter([lat, lng])} /> */}
 
-      <MapContainer style={{ height: "900px" }} center={center} zoom={7}>
+      <MapContainer
+        style={{ height: "900px" }}
+        center={center}
+        zoom={7}
+        zoomControl={false}
+      >
         <MapRecenter location={center} zoomLevel={7} />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <MapInstance />
+
         <DrawTools />
-        <Control position="topright">
+        <Control position="topleft">
           <ButtonGroup>
-            <Tooltip placement="left" title="Menu Layer">
+            <Tooltip placement="left">
               <MenuLayer />
             </Tooltip>
 

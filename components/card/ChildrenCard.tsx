@@ -1,6 +1,5 @@
 import { Card, Checkbox, CheckboxProps, Col, Row } from 'antd'
 import React from 'react'
-import { AiFillAlert } from 'react-icons/ai'
 
 const ChildrenCard = ({ childrenItems }) => {
   const onChange: CheckboxProps['onChange'] = (e) => {
@@ -18,7 +17,6 @@ const ChildrenCard = ({ childrenItems }) => {
                 <Checkbox className="w-full	" onChange={onChange}></Checkbox>
               </Col>
               <Col span={3}>
-                <AiFillAlert size={22} />
               </Col>
               <Col span={12}>{el.label}</Col>
             </Row>

@@ -9,7 +9,6 @@ import { dir } from "i18next";
 import { LocaleTypes, locales } from "./i18n/settings";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
-import "material-icons/iconfont/material-icons.css";
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
@@ -67,6 +66,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang={locale} dir={dir(locale)} suppressHydrationWarning>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
+      />
       <link
         rel="apple-touch-icon"
         sizes="76x76"

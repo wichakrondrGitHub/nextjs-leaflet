@@ -1,113 +1,58 @@
-"use client";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useParams, usePathname } from "next/navigation";
-import siteMetadata from "@/data/siteMetadata";
-import headerNavLinks from "@/data/headerNavLinks";
+import { Menu, Input, Button, Row, Col, Flex } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import Logo from "@/data/logo.svg";
 import Link from "./Link";
-import ThemeSwitch from "./ThemeSwitch";
-import LangSwitch from "./LangSwitch";
-import { useTranslation } from "app/[locale]/i18n/client";
-import type { LocaleTypes } from "app/[locale]/i18n/settings";
+import { useParams } from "next/navigation";
+import { LocaleTypes } from "@/app/[locale]/i18n/settings";
+import SearchPlace from "./map/tools/Search";
 
-// Styled components
-const StyledHeader = styled.header`
+const { SubMenu } = Menu;
+
+const StyledNav = styled.nav`
+  padding: 20px;
+  align-items: center;
+  justify-content: flex-start;
   background-color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+`;
+const StyledButton = styled(Button)`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: ${({ theme }) =>
-    theme?.colors?.headerBackground ||
-    "null"}; /* Use optional chaining and default to white */
-  box-shadow: ${({ theme }) =>
-    theme?.shadows?.header ||
-    "none"}; /* Use optional chaining and default to none */
 `;
-
-const StyledLogoContainer = styled.div`
-  margin-right: 1rem;
-`;
-
-const StyledLogo = styled.img`
-  width:  /* Set desired logo width here *;
-`;
-
-const StyledTitle = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: ${({ theme }) =>
-    theme?.colors?.headerTitle ||
-    ""}; /* Use optional chaining and default to black */
-  display: none;
-
-  @media (min-width: 768px) {
-    display: block;
-  }
-`;
-
-const StyledNavLinks = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-`;
-
-const StyledNavLink = styled(Link)`
-  font-weight: medium;
-  color: ${({ theme }) =>
-    theme?.colors?.headerLink ||
-    ""}; /* Use optional chaining and default to black */
-  text-decoration: none;
-  transition: color 0.2s ease-in-out;
-
-  &:hover {
-    color: ${({ theme }) =>
-      theme?.colors?.headerLinkHover ||
-      "#666"}; /* Use optional chaining and default to gray */
-  }
-
-  &.active {
-    color: ${({ theme }) =>
-      theme?.colors?.headerLinkActive ||
-      "#999"}; /* Use optional chaining and default to gray */
-  }
-`;
-
-// Header component
-const Header = () => {
+const Navigation = () => {
+  const [openKeys, setOpenKeys] = useState([]);
   const locale = useParams()?.locale as LocaleTypes;
-  const { t } = useTranslation(locale, "");
-  const pathname = usePathname();
+
+  const onOpenChange = (keys) => {
+    setOpenKeys(keys);
+  };
 
   return (
-    <StyledHeader>
-      <div>
-        <Link href={`/${locale}/`} aria-label={siteMetadata.headerTitle}>
-          <StyledLogoContainer>
+    <StyledNav>
+      <Row align="middle">
+        <Col xs={12} sm={4} md={4}>
+          <Link href={`/${locale}/`}>
             <Logo />
-          </StyledLogoContainer>
-        </Link>
-      </div>
-      <StyledNavLinks>
-        {headerNavLinks
-          .filter((link) => link.href !== "/")
-          .map((link) => {
-            const isSelected = pathname.includes(link.href);
-            return (
-              <StyledNavLink
-                key={link.title}
-                href={`/${locale}${link.href}`}
-                className={isSelected ? "active" : ""}
-              >
-                {t(`${link.title.toLowerCase()}`)}
-              </StyledNavLink>
-            );
-          })}
-        {/* <ThemeSwitch />
-        <LangSwitch /> */}
-      </StyledNavLinks>
-    </StyledHeader>
+          </Link>
+        </Col>
+        <Col xs={0} sm={13} xl={15}>
+          <SearchPlace onChange={() => {}} />
+        </Col>
+        <Col xs={12} sm={7} md={7} xl={5}>
+          <Flex justify="end" align="center" gap={10}>
+            <StyledButton size="large">
+              <span class="material-symbols-outlined">Upload</span>
+              Upload file
+            </StyledButton>
+            <Button size="large">
+              <span class="material-symbols-outlined">account_circle</span>
+            </Button>
+          </Flex>
+        </Col>
+      </Row>
+    </StyledNav>
   );
 };
 
-export default Header;
+export default Navigation;

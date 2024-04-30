@@ -16,6 +16,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
             token: {
               colorPrimary: "#2ab33b",
               colorInfo: "#2ab33b",
+              borderRadius: 16,
+            },
+            components: {
+              List: {
+                itemPaddingSM: "0",
+
+                /* here is your component tokens */
+              },
             },
           }}
         >

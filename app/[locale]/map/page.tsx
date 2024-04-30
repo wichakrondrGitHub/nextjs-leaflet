@@ -20,14 +20,7 @@ export default async function MapPage({ params: { locale } }: MapPageProps) {
 
   return (
     <>
-      <PageTitle>{t("title")}</PageTitle>
-
       <MapDrawing />
-      <MapChoropleth center={center} url={""} />
-      <MapWrapper />
-      <MapDrawMultiPolygon />
-      <MapWithGeoman />
-      <DatePicker />
     </>
   );
 }

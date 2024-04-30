@@ -3,7 +3,6 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useMap, useMapEvents } from "react-leaflet";
 import { Card, Row, Tooltip } from "antd";
-import { MdClose } from "react-icons/md";
 import RangeSlider from "@/components/input/RangeSlider";
 import "leaflet.glify";
 

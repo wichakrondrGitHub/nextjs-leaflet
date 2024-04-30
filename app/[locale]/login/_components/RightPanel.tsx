@@ -11,10 +11,10 @@ const RightPanelLayout = styled.div`
   background-color: white;
   flex-basis: 58%;
 `;
-interface SigninProps {
+interface RightPanelProps {
   params: { locale: LocaleTypes };
 }
-const RightPanel = ({ params: { locale } }: SigninProps) => {
+const RightPanel = ({ params: { locale } }: RightPanelProps) => {
   return (
     <RightPanelLayout>
       VARUNA SMART FOREST The Power of Geospatial Technology, AI & Machine

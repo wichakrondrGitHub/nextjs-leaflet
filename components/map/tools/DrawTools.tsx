@@ -122,7 +122,7 @@ onEditVertex	function	hook to leaflet-draw's draw:editvertex event*/
     <FeatureGroup>
       <EditControl
         onDrawStart={_onDrawStart}
-        position="topleft"
+        position="topright"
         onEdited={_onEdited}
         onCreated={_onCreated}
         onDeleted={_onDeleted}
